@@ -5,4 +5,4 @@ import bundle from "@/utils/experiment-bundler";
 /* -------------------------------------------------------------------------- */
 const canvas = document.createElement('canvas');
 
-export default bundle(canvas);
+export default bundle(canvas, {title: 'Basic WebGL', subTitle: ''});

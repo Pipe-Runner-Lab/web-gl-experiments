@@ -4,4 +4,6 @@
 #app {
   display: flex;
   background-color: var(--0dp);
+  color: var(--text-medium);
+  font-size: 1.2rem;
 }

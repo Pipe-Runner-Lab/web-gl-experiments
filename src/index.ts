@@ -1,27 +1,54 @@
-import './styles/index.css'
+import "./styles/index.css";
 
-import styles from './index.module.css';
+import styles from "./index.module.css";
 
-import experiment1 from './experiment-1';
+import experiment1 from "./experiment-1";
+import { Experiment } from "./@types/common";
+
+const experimentList = [experiment1];
 
 /* -------------------------------------------------------------------------- */
 /*                                LAYOUT SETUP                                */
 /* -------------------------------------------------------------------------- */
-const app = document.querySelector<HTMLDivElement>('#app')!
+const App = document.querySelector<HTMLDivElement>("#app")!;
 
-const selectorPanel = document.createElement('div');
-selectorPanel.classList.add(styles.selectorPanel);
+const SelectorPanel = document.createElement("div");
+SelectorPanel.classList.add(styles.selectorPanel);
 
-const experimentList = document.createElement('div');
-experimentList.classList.add(styles.experimentList);
+const ExperimentList = document.createElement("div");
+ExperimentList.classList.add(styles.experimentList);
 
-const stage = document.createElement('div');
-stage.classList.add(styles.stage);
+experimentList.forEach((experiment) => {
+  const ExperimentListItem = document.createElement("div");
+  ExperimentListItem.classList.add(styles.experimentListItem);
+  ExperimentListItem.textContent = experiment.metaData.title;
+
+  ExperimentList.appendChild(ExperimentListItem);
+});
+
+const Stage = document.createElement("div");
+Stage.classList.add(styles.stage);
 
 /* -------------------------------------------------------------------------- */
 /*                                 UPDATE DOM                                 */
 /* -------------------------------------------------------------------------- */
-selectorPanel.appendChild(experimentList);
+SelectorPanel.appendChild(ExperimentList);
 
-app.appendChild(selectorPanel);
-app.appendChild(stage);
+App.appendChild(SelectorPanel);
+App.appendChild(Stage);
+
+/* -------------------------------------------------------------------------- */
+/*                               SETUP HANDLERS                               */
+/* -------------------------------------------------------------------------- */
+function onChangeActiveExperiment({ canvas }: Experiment) {
+  const { clientWidth: width, clientHeight: height } = Stage;
+  canvas.width = width;
+  canvas.height = height;
+
+  Stage.appendChild(canvas);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              START EXPERIMENT                              */
+/* -------------------------------------------------------------------------- */
+onChangeActiveExperiment(experimentList[0]);

@@ -6,6 +6,12 @@
 
 .experimentList {
   width: 100%;
+  padding: 4px;
+}
+
+.experimentListItem {
+  height: 40px;
+  background-color: var(--2dp);
 }
 
 .stage {
