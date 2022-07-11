@@ -1,0 +1,13 @@
+.selectorPanel {
+  background-color: var(--1dp);
+  width: 360px;
+  border-right: 1px solid var(--border-color);
+}
+
+.experimentList {
+  width: 100%;
+}
+
+.stage {
+  flex: 1;
+}
