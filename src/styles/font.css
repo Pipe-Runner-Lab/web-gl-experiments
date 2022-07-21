@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Major+Mono+Display&display=swap');
+
+:root {
+  --code-font: 'Major Mono Display', monospace;
+  --body-font: 'M PLUS Rounded 1c', sans-serif;
+}

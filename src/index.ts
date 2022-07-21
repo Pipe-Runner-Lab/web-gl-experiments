@@ -10,42 +10,60 @@ const experimentList = [experiment1];
 /* -------------------------------------------------------------------------- */
 /*                                LAYOUT SETUP                                */
 /* -------------------------------------------------------------------------- */
-const App = document.querySelector<HTMLDivElement>("#app")!;
+const AppComponent = document.querySelector<HTMLDivElement>("#app")!;
 
-const SelectorPanel = document.createElement("div");
-SelectorPanel.classList.add(styles.selectorPanel);
+const SelectorPanelComponent = document.createElement("div");
+SelectorPanelComponent.classList.add(styles.selectorPanelComponent);
 
-const ExperimentList = document.createElement("div");
-ExperimentList.classList.add(styles.experimentList);
+const ExperimentListComponent = document.createElement("div");
+ExperimentListComponent.classList.add(styles.experimentListComponent);
+
+const MetaDataComponent = document.createElement('div');
+MetaDataComponent.classList.add(styles.metaDataComponent);
 
 experimentList.forEach((experiment) => {
-  const ExperimentListItem = document.createElement("div");
-  ExperimentListItem.classList.add(styles.experimentListItem);
-  ExperimentListItem.textContent = experiment.metaData.title;
+  const ExperimentListItemComponent = document.createElement("div");
+  ExperimentListItemComponent.classList.add(styles.experimentListItemComponent);
+  ExperimentListItemComponent.textContent = experiment.metaData.title;
 
-  ExperimentList.appendChild(ExperimentListItem);
+  ExperimentListComponent.appendChild(ExperimentListItemComponent);
 });
 
-const Stage = document.createElement("div");
-Stage.classList.add(styles.stage);
+const StageComponent = document.createElement("div");
+StageComponent.classList.add(styles.stageComponent);
 
 /* -------------------------------------------------------------------------- */
 /*                                 UPDATE DOM                                 */
 /* -------------------------------------------------------------------------- */
-SelectorPanel.appendChild(ExperimentList);
+SelectorPanelComponent.appendChild(ExperimentListComponent);
+SelectorPanelComponent.appendChild(MetaDataComponent);
 
-App.appendChild(SelectorPanel);
-App.appendChild(Stage);
+AppComponent.appendChild(SelectorPanelComponent);
+AppComponent.appendChild(StageComponent);
 
 /* -------------------------------------------------------------------------- */
 /*                               SETUP HANDLERS                               */
 /* -------------------------------------------------------------------------- */
-function onChangeActiveExperiment({ canvas }: Experiment) {
-  const { clientWidth: width, clientHeight: height } = Stage;
-  canvas.width = width;
-  canvas.height = height;
+function onChangeActiveExperiment({
+  metaData: { isAnimated, description },
+  initialize,
+}: Experiment) {
+  const { clientWidth: width, clientHeight: height } = StageComponent;
+  MetaDataComponent.textContent = description;
 
-  Stage.appendChild(canvas);
+  const { canvas, draw } = initialize({ width, height });
+
+  StageComponent.appendChild(canvas);
+
+  try {
+    if (isAnimated) {
+      // TODO: use animation loop
+    } else {
+      draw();
+    }
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 /* -------------------------------------------------------------------------- */

@@ -1,14 +1,14 @@
-import { MetaData } from "@/types/common";
+import { Experiment, InitializeProp, MetaData } from "@/types/common";
 
 export default function bundle(
-  canvas: HTMLCanvasElement,
-  metaData: MetaData
-): {
-  canvas: HTMLCanvasElement;
-  metaData: MetaData
-} {
+  metaData: MetaData,
+  initialize: (args: InitializeProp) => {
+    canvas: HTMLCanvasElement;
+    draw: () => void;
+  }
+): Experiment {
   return {
-    canvas,
     metaData,
+    initialize,
   };
 }

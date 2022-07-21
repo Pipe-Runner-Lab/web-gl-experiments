@@ -1,5 +1,11 @@
-@import url('./reset.css');
-@import url('./themes.css');
+@import url("./reset.css");
+@import url("./theme.css");
+@import url("./font.css");
+
+:root {
+  font-family: var(--body-font);
+  color: var(--text-medium);
+}
 
 #app {
   display: flex;

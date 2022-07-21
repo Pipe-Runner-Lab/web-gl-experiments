@@ -1,6 +1,14 @@
-export type MetaData = { title: string; subTitle: string };
+export type MetaData = { title: string; description: string, isAnimated?: boolean };
+
+export type InitializeProp = {
+  height: number;
+  width: number;
+}
 
 export type Experiment = {
-  canvas: HTMLCanvasElement,
-  metaData: MetaData
+  metaData: MetaData,
+  initialize: (args: InitializeProp) => {
+    canvas: HTMLCanvasElement,
+    draw: () => void
+  }
 }
